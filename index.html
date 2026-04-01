@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Registration Form</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="toggle" id="themeToggle" onclick="toggleTheme()">🌙</div>
+
+<div class="container">
+  <h2>Register</h2>
+
+  <form id="form">
+
+    <!-- Name -->
+    <label>Full Name</label>
+    <input type="text" placeholder="Enter your name" required>
+
+
+    <!-- Email -->
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
+
+    <!-- Password -->
+    <label>Password</label>
+    <div class="password-box">
+      <input type="password" id="password" placeholder="Enter password" required>
+      <span id="togglePass">👁</span>
+    </div>
+
+    <div id="strength"><div></div></div>
+
+    <!-- Gender -->
+    <div class="gender">
+      <p>Gender</p>
+      <div class="gender-options">
+        <label><input type="radio" name="gender" required> Male</label>
+        <label><input type="radio" name="gender"> Female</label>
+      </div>
+    </div>
+
+    <div class="input-box">
+    <select required>
+      <option>Course / Interest</option>
+      <option>Web Development</option>
+      <option>Design</option>
+      <option>AI</option>
+    </select>
+  </div>
+
+    <!-- Submit -->
+    <button type="submit" onclick="showPopup()">Register Now</button>
+
+  </form>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <h2>🎉 Success!</h2>
+  <p>Your account has been created</p>
+  <button onclick="closePopup()">OK</button>
+</div>
+
+</div>
+
+<script>
+
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+}
+
+// Password Show/Hide
+const pass = document.getElementById("password");
+document.getElementById("togglePass").onclick = () => {
+  pass.type = pass.type === "password" ? "text" : "password";
+};
+
+// Character Count
+const nameInput = document.getElementById("name");
+const charCount = document.getElementById("charCount");
+
+nameInput.addEventListener("input", () => {
+  charCount.innerText = nameInput.value.length + "/20";
+});
+
+// Password Strength
+pass.addEventListener("input", () => {
+  let strengthBar = document.querySelector("#strength div");
+  let val = pass.value.length;
+
+  if(val < 5){
+    strengthBar.style.width = "30%";
+    strengthBar.style.background = "red";
+  } else if(val < 8){
+    strengthBar.style.width = "60%";
+    strengthBar.style.background = "orange";
+  } else {
+    strengthBar.style.width = "100%";
+    strengthBar.style.background = "green";
+  }
+});
+
+
+function showPopup(){
+  document.getElementById("popup").classList.add("active");
+}
+
+function closePopup(){
+  document.getElementById("popup").classList.remove("active");
+}
+
+</script>
+
+</body>
+</html>
